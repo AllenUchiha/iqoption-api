@@ -1,4 +1,6 @@
 """Module for IQ Option buyV2 websocket chanel."""
+import time
+import datetime
 
 from iqoptionapi.ws.chanels.base import Base
 
@@ -14,13 +16,14 @@ class Buyv2(Base):
 
         :param price: The buying price.
         :param active: The buying active.
+        :param exp: The buying exp.
         :param option: The buying option.
         :param direction: The buying direction.
         """
         data = {"price": price,
                 "act": active,
-                "exp": time.mktime(self.server_datetime + datetime.timedelta(
-                    minutes=exp).replace(second=0, microsecond=0).timetuple()),
+                "exp": time.mktime((self.api.timesync.server_datetime.replace(second=0, microsecond=0) +
+                                   datetime.timedelta(minutes=exp)).replace(second=0, microsecond=0).timetuple()),
                 "type": option,
                 "direction": direction,
                 "time": self.api.timesync.server_timestamp

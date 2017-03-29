@@ -45,5 +45,6 @@ class ListInfoData(Base):
         #if new_listinfodata.id not in self.listinfodata_list:
         self.listinfodata_list[new_listinfodata.id] = new_listinfodata
 
-    def all_listinfodata_looses_len(self):
-        return [listinfodata for listinfodata in self.listinfodata_list if listinfodata.win == "loose"]
+    def all_listinfodata(self):
+        return self.listinfodata_list.values()
+        # [listinfodata for listinfodata in self.listinfodata_list if listinfodata.win == "loose"]
